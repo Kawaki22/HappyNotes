@@ -4,4 +4,6 @@ enum class NavScreen {
     SplashScreen,
     HomeScreen,
     AddNoteScreen,
+    EditNoteScreen,
+    AboutScreen
 }

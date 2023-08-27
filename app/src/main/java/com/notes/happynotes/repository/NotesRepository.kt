@@ -1,5 +1,6 @@
 package com.notes.happynotes.repository
 
+import com.notes.happynotes.model.MDarkMode
 import com.notes.happynotes.model.MNote
 import com.notes.happynotes.room.HappyNotesDao
 import kotlinx.coroutines.Dispatchers
@@ -21,5 +22,11 @@ class NotesRepository @Inject constructor(private val happyNotesDao: HappyNotesD
     suspend fun deleteAllNotes() = happyNotesDao.deleteAllNotes()
 
     suspend fun deleteNote(id: UUID) = happyNotesDao.deleteNote(id = id)
+
+
+    //Dark Mode/Light Mode
+    fun getTheme(): Flow<List<MDarkMode>> = happyNotesDao.getTheme().flowOn(Dispatchers.IO)
+    suspend fun addTheme(mode: MDarkMode) = happyNotesDao.addTheme(mode = mode)
+    suspend fun updateTheme(mode: MDarkMode) = happyNotesDao.updateTheme(mode = mode)
 
 }

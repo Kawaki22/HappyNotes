@@ -1,7 +1,10 @@
 package com.notes.happynotes.screens.home
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.notes.happynotes.model.MDarkMode
 import com.notes.happynotes.model.MNote
 import com.notes.happynotes.repository.NotesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +22,13 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
     private val _notesList = MutableStateFlow<List<MNote>>(emptyList())
     val noteList = _notesList.asStateFlow()
 
+    private val _theme = MutableStateFlow<List<MDarkMode>>(emptyList())
+    val theme = _theme.asStateFlow()
+
     init {
         getAllNotes()
+        getTheme()
+//        Log.d("THEMEE", "HappyNotesAppBar: $theme")
     }
 
     private fun getAllNotes() {
@@ -73,6 +81,34 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
 
             notesRepository.deleteNote(id = id)
 
+        }
+    }
+
+    private fun getTheme() {
+//        var mode: MDarkMode? = null
+        viewModelScope.launch(Dispatchers.IO) {
+            notesRepository.getTheme().distinctUntilChanged().collect { listOfMDark ->
+
+                if (listOfMDark.isNotEmpty()) {
+                    _theme.value = listOfMDark
+                } else {
+                    _theme.value = emptyList()
+                }
+            }
+//            Log.d("THEMEE", "HappyNotesAppBar: $mode")
+        }
+//        return mode
+    }
+
+    fun addTheme(mode: MDarkMode) {
+        viewModelScope.launch(Dispatchers.IO) {
+            notesRepository.addTheme(mode = mode)
+        }
+    }
+
+    fun updateTheme(mode: MDarkMode) {
+        viewModelScope.launch(Dispatchers.IO) {
+            notesRepository.updateTheme(mode = mode)
         }
     }
 }

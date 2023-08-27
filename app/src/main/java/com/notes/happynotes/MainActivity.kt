@@ -3,14 +3,10 @@ package com.notes.happynotes
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import com.notes.happynotes.navigation.HappyNotesNavigation
 import com.notes.happynotes.ui.theme.HappyNotesTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,16 +15,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
-            HappyNotesTheme {
+            val isChecked = remember { mutableStateOf(false) }
+            HappyNotesTheme(darkTheme = isChecked.value) {
 //                WindowCompat.setDecorFitsSystemWindows(window, false)
-                HappyNotesApp()
+                HappyNotesApp(isChecked = isChecked)
             }
         }
     }
 }
 
 @Composable
-fun HappyNotesApp() {
-    HappyNotesNavigation()
+fun HappyNotesApp(isChecked: MutableState<Boolean>) {
+    HappyNotesNavigation(isChecked = isChecked)
 }

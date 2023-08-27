@@ -49,16 +49,16 @@ fun HappyNotesTheme(
     val colorScheme = when {
       dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
         val context = LocalContext.current
-        if (darkTheme) dynamicLightColorScheme(context) else dynamicLightColorScheme(context)
+        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
       }
-      darkTheme -> LightColorScheme
+      darkTheme -> DarkColorScheme
       else -> LightColorScheme
     }
 //    val view = LocalView.current
 
     val systemUI = rememberSystemUiController()
     SideEffect {
-        if (darkTheme) systemUI.setSystemBarsColor(Color.White) else systemUI.setSystemBarsColor(Color.White)
+        if (darkTheme) systemUI.setSystemBarsColor(Color.Black.copy(alpha = 0.9f)) else systemUI.setSystemBarsColor(Color.White)
     }
 
 //    if (!view.isInEditMode) {

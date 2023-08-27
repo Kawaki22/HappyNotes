@@ -1,5 +1,6 @@
-package com.notes.happynotes.screens.addnote
+package com.notes.happynotes.screens.editnote
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -44,14 +46,15 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddNoteScreen(navController: NavController, viewModel: HomeScreenViewModel = hiltViewModel()) {
+fun EditNoteScreen(id: UUID, title: String, body: String, color: Long, height: Int, navController: NavController, viewModel: HomeScreenViewModel = hiltViewModel()) {
 
-    val title = remember { mutableStateOf("") }
-    val body = remember { mutableStateOf("") }
+    val editTitle = remember { mutableStateOf(title) }
+    val editBody = remember { mutableStateOf(body) }
 
     //for title
     val focusReq = remember { FocusRequester() }
@@ -61,18 +64,25 @@ fun AddNoteScreen(navController: NavController, viewModel: HomeScreenViewModel =
     //format: Mon Aug 2023 06:06 AM
     val dateTime = SimpleDateFormat("E MMM yyyy hh:mm a", Locale.getDefault())
 
-//    val fontColor = if (isChecked.value) Color.White.copy(alpha = 0.5f) else Color.Black.copy(alpha = 0.5f)
-
     val newNote = MNote(
-        title = title.value.trim(),
-        noteBody = body.value.trim(),
-        color = Random.nextLong(0xFFFFFFFF),
-        height = Random.nextInt(220,300)
+        id = id,
+        title = editTitle.value.trim(),
+        noteBody = editBody.value.trim(),
+        color = color,
+        height = height
     )
 
+    val context = LocalContext.current
+
     Scaffold(modifier = Modifier.fillMaxSize(),
-        topBar = { HappyNotesAppBar2(done = { if (title.value.trim().isNotEmpty() && body.value.trim().isNotEmpty() ) {
-            viewModel.addNote(note = newNote)
+        topBar = { HappyNotesAppBar2(showDelete = true,
+            onDelete = {
+                viewModel.deleteNote(id = id)
+                Toast.makeText(context, "Note deleted", Toast.LENGTH_LONG).show()
+                navController.popBackStack()
+                       },
+            done = { if (editTitle.value.trim().isNotEmpty() && editBody.value.trim().isNotEmpty() ) {
+            viewModel.editNote(note = newNote)
             navController.popBackStack()
         } },
             navController = navController)}) { innerPadding ->
@@ -83,8 +93,8 @@ fun AddNoteScreen(navController: NavController, viewModel: HomeScreenViewModel =
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally) {
 
-            TextField(modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 70.dp).focusRequester(focusReq), value = title.value, onValueChange = { title.value = it },
-                placeholder = { Text(text = "Title", style = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Start)) },
+            TextField(modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 70.dp).focusRequester(focusReq), value = editTitle.value, onValueChange = { editTitle.value = it },
+                placeholder = { Text(text = "Title", style = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Start, color = Color.Black.copy(alpha = 0.5f))) },
                 colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
                 keyboardActions = KeyboardActions(onNext = { focusReqBody.requestFocus() }),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
@@ -94,8 +104,8 @@ fun AddNoteScreen(navController: NavController, viewModel: HomeScreenViewModel =
 
             Text(modifier = Modifier.fillMaxWidth(), text = dateTime.format(Date()), style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center))
 
-            TextField(modifier = Modifier.fillMaxWidth().fillMaxHeight().focusRequester(focusReqBody), value = body.value, onValueChange = { body.value = it },
-                placeholder = { Text(text = "Start typing.....", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Start)) },
+            TextField(modifier = Modifier.fillMaxWidth().fillMaxHeight().focusRequester(focusReqBody), value = editBody.value, onValueChange = { editBody.value = it },
+                placeholder = { Text(text = "Start typing.....", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Start, color = Color.Black.copy(alpha = 0.5f))) },
                 colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
                 keyboardActions = KeyboardActions(onNext = {  }),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
