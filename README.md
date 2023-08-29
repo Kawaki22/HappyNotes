@@ -16,6 +16,6 @@ The app is designed with the MVVM (Model-View-ViewModel) architecture, promoting
 2) ROOM Database: Provides local storage capabilities with SQLite and seamless object-mapping.
 3) Material Design Components: Offers pre-designed UI elements following the Material Design guidelines.
 
-Got suggestions or feedback? Let's connect: prasidhpoojary22@gmail.com
+Designed and developed by Prasidh Gopal Anchan.
 
-https://twitter.com/poojaryPrasidh
+Got suggestions or feedback? Let's connect: prasidhpoojary22@gmail.com
