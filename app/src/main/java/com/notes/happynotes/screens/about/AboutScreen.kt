@@ -3,6 +3,7 @@ package com.notes.happynotes.screens.about
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,9 +35,12 @@ import com.notes.happynotes.components.HappyNotesAppBar2
 @Composable
 fun AboutScreen(navController: NavController) {
 
+    val scaffoldColor = if (isSystemInDarkTheme()) Color.Black else Color.White
+
     val uriHandler = LocalUriHandler.current
     Scaffold(modifier = Modifier.fillMaxSize(),
-        topBar = {  }) { innerPadding ->
+        topBar = {  },
+        containerColor = scaffoldColor) { innerPadding ->
 
         Column(modifier = Modifier
             .padding(innerPadding)
@@ -53,7 +57,8 @@ fun AboutScreen(navController: NavController) {
             Text(modifier = Modifier.padding(bottom = 20.dp), text = "\"Happy Notes\" is a meticulously crafted Android application that brings the art of note-taking to a new level of convenience and delight. Built with the modern MVVM (Model-View-ViewModel) architecture and powered by the robust Room Database, this app offers an exceptional note-taking experience that seamlessly combines functionality with elegance.", style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Normal, color = Color.White, textAlign = TextAlign.Center))
             Image(modifier = Modifier
                 .width(100.dp)
-                .height(50.dp).clickable { uriHandler.openUri("https://github.com/Kawaki22/") }, painter = painterResource(id = R.drawable.github), contentDescription = "GitHub", colorFilter = ColorFilter.tint(Color.White))
+                .height(50.dp)
+                .clickable { uriHandler.openUri("https://github.com/Kawaki22/") }, painter = painterResource(id = R.drawable.github), contentDescription = "GitHub", colorFilter = ColorFilter.tint(Color.White))
 
             Spacer(modifier = Modifier.height(20.dp))
         }

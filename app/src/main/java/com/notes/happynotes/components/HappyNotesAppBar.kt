@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,19 +28,19 @@ import androidx.compose.ui.unit.sp
 import com.notes.happynotes.R
 import com.notes.happynotes.model.MDarkMode
 import com.notes.happynotes.screens.home.HomeScreenViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun HappyNotesAppBar(modifier: Modifier = Modifier, title: String, isChecked: MutableState<Boolean>, viewModel: HomeScreenViewModel, searchState: MutableState<String>, onSearch: () -> Unit) {
 
-    val mode = if (isChecked.value) R.drawable.light_mode else R.drawable.dark_mode
+    val mode = if (isChecked.value) R.drawable.dark_mode else R.drawable.light_mode
+    val scaffoldColor = if (isChecked.value) Color.Black else Color.White
 
     val theme = viewModel.theme.collectAsState().value
 
     if (theme.isEmpty()) viewModel.addTheme(mode = MDarkMode(key = 1, isChecked = isChecked.value))
 
     val viewModelIsChecked = viewModel.theme.collectAsState().value.first().isChecked
+
 
 //    val themeFromRoom = remember { mutableStateOf(if (theme.isNotEmpty()) theme.first().isChecked else isChecked.value) }
 
@@ -55,7 +54,8 @@ fun HappyNotesAppBar(modifier: Modifier = Modifier, title: String, isChecked: Mu
     Surface(modifier = modifier
         .fillMaxWidth()
         .height(160.dp)
-        .padding(top = 20.dp)
+        .padding(top = 20.dp),
+        color = scaffoldColor
     ) {
 
         Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
@@ -67,7 +67,7 @@ fun HappyNotesAppBar(modifier: Modifier = Modifier, title: String, isChecked: Mu
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween) {
 
-                Text(text = title, style = TextStyle(fontSize = 40.sp, fontWeight = FontWeight.Bold))
+                Text(text = title, style = TextStyle(fontSize = 40.sp, fontWeight = FontWeight.Bold, color = if (isChecked.value) Color.White else Color.Black))
 
                 Switch(checked = isChecked.value, onCheckedChange = {
                     isChecked.value = it

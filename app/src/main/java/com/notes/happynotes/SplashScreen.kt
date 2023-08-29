@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -38,7 +39,9 @@ fun SplashScreen(isChecked: MutableState<Boolean>, navController: NavController,
         navController.navigate(NavScreen.HomeScreen.name)
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+    val scaffoldColor = if (isChecked.value) Color.Black else Color.White
+
+    Scaffold(modifier = Modifier.fillMaxSize(), containerColor = scaffoldColor) { innerPadding ->
 
         Column(modifier = Modifier
             .fillMaxSize()

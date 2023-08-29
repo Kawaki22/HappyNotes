@@ -58,7 +58,7 @@ fun HappyNotesTheme(
 
     val systemUI = rememberSystemUiController()
     SideEffect {
-        if (darkTheme) systemUI.setSystemBarsColor(Color.Black.copy(alpha = 0.9f)) else systemUI.setSystemBarsColor(Color.White)
+        if (darkTheme) systemUI.setSystemBarsColor(Color.Black) else systemUI.setSystemBarsColor(Color.White)
     }
 
 //    if (!view.isInEditMode) {

@@ -44,25 +44,26 @@ fun HomeScreen(isChecked: MutableState<Boolean>, navController: NavHostControlle
 
     val notesList = viewModel.noteList.collectAsState()
     var searchNote = emptyList<MNote>()
-//    Log.d("NOTEE", "HomeScreen: $searchNote")
-//    Log.d("NOTESS", "HomeScreen: ${Date.from(Instant.now())}")
 
     val noNotesColor = if (isChecked.value) Color.White.copy(alpha = 0.5f) else Color.Black.copy(alpha = 0.5f)
-    val bottomBarColor = if (isChecked.value) Color.Black else Color.Black
+    val bottomBarColor = if (isChecked.value) Color(0xFF332E2E) else Color.Black
 
     searchNote = notesList.value.filter { mNote -> mNote.title.contains(searchState.value.trim()) }
 
-    val notesDummyList = listOf<MNote>(
-        MNote(
-            title = "Game",
-            noteBody = "Staggered Grid View has been seen in most applications such as Pinterest in which each item of grid view takes its own height and aligns within the grid view according to that. In this article, we will look at how to implement",
-            color = 0xFF4E33FF,
-            height = 200
-        )
-    )
+//    val notesDummyList = listOf<MNote>(
+//        MNote(
+//            title = "Game",
+//            noteBody = "Staggered Grid View has been seen in most applications such as Pinterest in which each item of grid view takes its own height and aligns within the grid view according to that. In this article, we will look at how to implement",
+//            color = 0xFF4E33FF,
+//            height = 200
+//        )
+//    )
+
+    val scaffoldColor = if (isChecked.value) Color.Black else Color.White
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {  },
+        containerColor = scaffoldColor,
         floatingActionButton = {
             FloatingActionButton(modifier = Modifier
                 .size(85.dp)

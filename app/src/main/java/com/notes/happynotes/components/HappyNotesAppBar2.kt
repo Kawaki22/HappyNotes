@@ -1,5 +1,6 @@
 package com.notes.happynotes.components
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,9 +23,13 @@ import com.notes.happynotes.R
 
 @Composable
 fun HappyNotesAppBar2(done: () -> Unit, onDelete: () -> Unit = {  }, showDelete: Boolean = false, showDone: Boolean = true, navController: NavController) {
+
+    val scaffoldColor = if (isSystemInDarkTheme()) Color.Black else Color.White
+
     Surface(modifier = Modifier
         .fillMaxWidth()
-        .height(120.dp)) {
+        .height(120.dp),
+        color = scaffoldColor) {
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(start = 25.dp, end = 25.dp),

@@ -1,6 +1,7 @@
 package com.notes.happynotes.screens.editnote
 
 import android.widget.Toast
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
@@ -74,7 +75,10 @@ fun EditNoteScreen(id: UUID, title: String, body: String, color: Long, height: I
 
     val context = LocalContext.current
 
+    val scaffoldColor = if (isSystemInDarkTheme()) Color.Black else Color.White
+
     Scaffold(modifier = Modifier.fillMaxSize(),
+        containerColor = scaffoldColor,
         topBar = { HappyNotesAppBar2(showDelete = true,
             onDelete = {
                 viewModel.deleteNote(id = id)
@@ -93,7 +97,10 @@ fun EditNoteScreen(id: UUID, title: String, body: String, color: Long, height: I
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally) {
 
-            TextField(modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 70.dp).focusRequester(focusReq), value = editTitle.value, onValueChange = { editTitle.value = it },
+            TextField(modifier = Modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = 70.dp)
+                .focusRequester(focusReq), value = editTitle.value, onValueChange = { editTitle.value = it },
                 placeholder = { Text(text = "Title", style = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Start, color = Color.Black.copy(alpha = 0.5f))) },
                 colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
                 keyboardActions = KeyboardActions(onNext = { focusReqBody.requestFocus() }),
@@ -104,7 +111,10 @@ fun EditNoteScreen(id: UUID, title: String, body: String, color: Long, height: I
 
             Text(modifier = Modifier.fillMaxWidth(), text = dateTime.format(Date()), style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center))
 
-            TextField(modifier = Modifier.fillMaxWidth().fillMaxHeight().focusRequester(focusReqBody), value = editBody.value, onValueChange = { editBody.value = it },
+            TextField(modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .focusRequester(focusReqBody), value = editBody.value, onValueChange = { editBody.value = it },
                 placeholder = { Text(text = "Start typing.....", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Start, color = Color.Black.copy(alpha = 0.5f))) },
                 colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
                 keyboardActions = KeyboardActions(onNext = {  }),

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
@@ -42,7 +43,7 @@ fun NotesCard(mNoteList: List<MNote>,navController: NavController, viewModel: Ho
 
             NotesCardItem(mNote = mNote, navController = navController, viewModel = viewModel)
         }
-        item {
+        item(span = StaggeredGridItemSpan.FullLine) {
             Spacer(modifier = Modifier.height(120.dp))
         }
     }
