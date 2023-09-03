@@ -33,9 +33,10 @@ import com.notes.happynotes.components.HappyNotesAppBar2
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(navController: NavController) {
+fun AboutScreen(navController: NavController, isChecked: Boolean?) {
 
-    val scaffoldColor = if (isSystemInDarkTheme()) Color.Black else Color.White
+    val scaffoldColor = if (isChecked == true) Color.Black else Color.White
+    val fontColor = if (isChecked == true) Color.White else Color.Black
 
     val uriHandler = LocalUriHandler.current
     Scaffold(modifier = Modifier.fillMaxSize(),
@@ -51,14 +52,15 @@ fun AboutScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally) {
 
             //AppBar
-            HappyNotesAppBar2(showDone = false, done = {  }, navController = navController)
+            HappyNotesAppBar2(showDone = false, done = {  }, navController = navController, isChecked = isChecked)
 
             Image(painter = painterResource(id = R.drawable.about_pic), contentDescription = "Pic")
-            Text(modifier = Modifier.padding(bottom = 20.dp), text = "\"Happy Notes\" is a meticulously crafted Android application that brings the art of note-taking to a new level of convenience and delight. Built with the modern MVVM (Model-View-ViewModel) architecture and powered by the robust Room Database, this app offers an exceptional note-taking experience that seamlessly combines functionality with elegance.", style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Normal, color = Color.White, textAlign = TextAlign.Center))
+            Text(modifier = Modifier.padding(bottom = 20.dp), text = "\"Happy Notes\" is a meticulously crafted Android application that brings the art of note-taking to a new level of convenience and delight. Built with the modern MVVM (Model-View-ViewModel) architecture and powered by the robust Room Database, this app offers an exceptional note-taking experience that seamlessly combines functionality with elegance.", style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Normal, color = fontColor, textAlign = TextAlign.Center))
             Image(modifier = Modifier
                 .width(100.dp)
                 .height(50.dp)
-                .clickable { uriHandler.openUri("https://github.com/Kawaki22/") }, painter = painterResource(id = R.drawable.github), contentDescription = "GitHub", colorFilter = ColorFilter.tint(Color.White))
+                .clickable { uriHandler.openUri("https://github.com/Kawaki22/") },
+                painter = painterResource(id = R.drawable.github), contentDescription = "GitHub", colorFilter = ColorFilter.tint(fontColor))
 
             Spacer(modifier = Modifier.height(20.dp))
         }

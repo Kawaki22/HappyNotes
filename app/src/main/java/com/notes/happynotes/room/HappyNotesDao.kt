@@ -8,12 +8,11 @@ import androidx.room.Update
 import com.notes.happynotes.model.MDarkMode
 import com.notes.happynotes.model.MNote
 import kotlinx.coroutines.flow.Flow
-import java.util.UUID
 
 @Dao
 interface HappyNotesDao {
 
-    @Query("SELECT * from notes_tbl")
+    @Query("SELECT * from notes_tbl ORDER BY id DESC")
     fun getAllNotes(): Flow<List<MNote>>
 
     @Query("SELECT * from notes_tbl where title =:name")
@@ -29,7 +28,7 @@ interface HappyNotesDao {
     suspend fun deleteAllNotes()
 
     @Query("DELETE from notes_tbl where id =:id")
-    suspend fun deleteNote(id: UUID)
+    suspend fun deleteNote(id: Long)
 
 
     //Dark Mode/Light Mode

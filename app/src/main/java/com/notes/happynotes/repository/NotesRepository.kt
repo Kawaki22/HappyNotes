@@ -21,7 +21,7 @@ class NotesRepository @Inject constructor(private val happyNotesDao: HappyNotesD
 
     suspend fun deleteAllNotes() = happyNotesDao.deleteAllNotes()
 
-    suspend fun deleteNote(id: UUID) = happyNotesDao.deleteNote(id = id)
+    suspend fun deleteNote(id: Long) = happyNotesDao.deleteNote(id = id)
 
 
     //Dark Mode/Light Mode

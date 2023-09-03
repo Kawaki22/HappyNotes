@@ -76,7 +76,7 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
         }
     }
 
-    fun deleteNote(id: UUID) {
+    fun deleteNote(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
 
             notesRepository.deleteNote(id = id)

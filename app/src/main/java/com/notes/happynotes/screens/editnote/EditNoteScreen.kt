@@ -1,19 +1,16 @@
 package com.notes.happynotes.screens.editnote
 
 import android.widget.Toast
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,23 +33,19 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.compose.ui.unit.sp
 import com.notes.happynotes.components.HappyNotesAppBar2
 import com.notes.happynotes.model.MNote
 import com.notes.happynotes.screens.home.HomeScreenViewModel
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.Date
 import java.util.Locale
-import java.util.UUID
-import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditNoteScreen(id: UUID, title: String, body: String, color: Long, height: Int, navController: NavController, viewModel: HomeScreenViewModel = hiltViewModel()) {
+fun EditNoteScreen(id: Long, title: String, body: String, color: Long, height: Int, navController: NavController, isChecked: Boolean?, viewModel: HomeScreenViewModel = hiltViewModel()) {
 
     val editTitle = remember { mutableStateOf(title) }
     val editBody = remember { mutableStateOf(body) }
@@ -75,11 +68,12 @@ fun EditNoteScreen(id: UUID, title: String, body: String, color: Long, height: I
 
     val context = LocalContext.current
 
-    val scaffoldColor = if (isSystemInDarkTheme()) Color.Black else Color.White
+    val scaffoldColor = if (isChecked == true) Color.Black else Color.White
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         containerColor = scaffoldColor,
         topBar = { HappyNotesAppBar2(showDelete = true,
+            isChecked = isChecked,
             onDelete = {
                 viewModel.deleteNote(id = id)
                 Toast.makeText(context, "Note deleted", Toast.LENGTH_LONG).show()

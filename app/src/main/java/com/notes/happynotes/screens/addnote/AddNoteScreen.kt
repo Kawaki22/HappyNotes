@@ -7,12 +7,10 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,16 +38,18 @@ import androidx.compose.ui.unit.sp
 import com.notes.happynotes.components.HappyNotesAppBar2
 import com.notes.happynotes.model.MNote
 import com.notes.happynotes.screens.home.HomeScreenViewModel
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.Date
 import java.util.Locale
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddNoteScreen(navController: NavController, viewModel: HomeScreenViewModel = hiltViewModel()) {
+fun AddNoteScreen(
+    navController: NavController,
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    isChecked: Boolean?
+) {
 
     val title = remember { mutableStateOf("") }
     val body = remember { mutableStateOf("") }
@@ -71,7 +71,7 @@ fun AddNoteScreen(navController: NavController, viewModel: HomeScreenViewModel =
         height = Random.nextInt(220,300)
     )
 
-    val scaffoldColor = if (isSystemInDarkTheme()) Color.Black else Color.White
+    val scaffoldColor = if (isChecked == true) Color.Black else Color.White
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         containerColor = scaffoldColor,
@@ -79,7 +79,8 @@ fun AddNoteScreen(navController: NavController, viewModel: HomeScreenViewModel =
             viewModel.addNote(note = newNote)
             navController.popBackStack()
         } },
-            navController = navController)}) { innerPadding ->
+            navController = navController,
+            isChecked = isChecked)}) { innerPadding ->
 
         Column(modifier = Modifier
             .padding(innerPadding)

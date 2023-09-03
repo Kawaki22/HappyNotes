@@ -22,9 +22,9 @@ import androidx.navigation.NavController
 import com.notes.happynotes.R
 
 @Composable
-fun HappyNotesAppBar2(done: () -> Unit, onDelete: () -> Unit = {  }, showDelete: Boolean = false, showDone: Boolean = true, navController: NavController) {
+fun HappyNotesAppBar2(done: () -> Unit, onDelete: () -> Unit = {  }, showDelete: Boolean = false, showDone: Boolean = true, isChecked: Boolean?, navController: NavController) {
 
-    val scaffoldColor = if (isSystemInDarkTheme()) Color.Black else Color.White
+    val scaffoldColor = if (isChecked == true) Color.Black else Color.White
 
     Surface(modifier = Modifier
         .fillMaxWidth()

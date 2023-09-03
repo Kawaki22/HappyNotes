@@ -1,6 +1,5 @@
 package com.notes.happynotes.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.navigation.NavType
@@ -13,7 +12,6 @@ import com.notes.happynotes.screens.about.AboutScreen
 import com.notes.happynotes.screens.addnote.AddNoteScreen
 import com.notes.happynotes.screens.editnote.EditNoteScreen
 import com.notes.happynotes.screens.home.HomeScreen
-import java.util.UUID
 
 @Composable
 fun HappyNotesNavigation(isChecked: MutableState<Boolean>) {
@@ -23,14 +21,11 @@ fun HappyNotesNavigation(isChecked: MutableState<Boolean>) {
          composable(NavScreen.SplashScreen.name) {
              SplashScreen(isChecked = isChecked, navController = navController)
          }
-
-         Log.d("DARKK", "HappyNotesNavigation: ${isChecked.value}")
-
          composable(NavScreen.HomeScreen.name) {
              HomeScreen(isChecked = isChecked, navController = navController)
          }
          composable(NavScreen.AddNoteScreen.name) {
-             AddNoteScreen(navController = navController)
+             AddNoteScreen(navController = navController, isChecked = isChecked.value)
          }
          val editScreen = NavScreen.EditNoteScreen.name
          composable("$editScreen/{id}/{title}/{body}/{color}/{height}", arguments = listOf(
@@ -50,15 +45,15 @@ fun HappyNotesNavigation(isChecked: MutableState<Boolean>) {
                  type = NavType.IntType
              }
          )) { backStack ->
-             val id = backStack.arguments?.getString("id")
+             val id = backStack.arguments?.getLong("id")
              val title = backStack.arguments?.getString("title")
              val body = backStack.arguments?.getString("body")
              val color = backStack.arguments?.getLong("color")
              val height = backStack.arguments?.getInt("height")
-             EditNoteScreen(navController = navController, id = UUID.fromString(id), title = title!!, body = body!!, color = color!!, height = height!!)
+             EditNoteScreen(navController = navController, id = id!!, title = title!!, body = body!!, color = color!!, height = height!!, isChecked = isChecked.value)
          }
          composable(NavScreen.AboutScreen.name) {
-             AboutScreen(navController = navController)
+             AboutScreen(navController = navController, isChecked = isChecked.value)
          }
      }
 }

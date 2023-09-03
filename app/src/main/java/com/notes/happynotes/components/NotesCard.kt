@@ -32,16 +32,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.notes.happynotes.model.MNote
 import com.notes.happynotes.navigation.NavScreen
-import com.notes.happynotes.screens.home.HomeScreenViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NotesCard(mNoteList: List<MNote>,navController: NavController, viewModel: HomeScreenViewModel) {
+fun NotesCard(mNoteList: List<MNote>, navController: NavController, isChecked: Boolean) {
     
     LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2)) {
         items(items = mNoteList) { mNote ->
 
-            NotesCardItem(mNote = mNote, navController = navController, viewModel = viewModel)
+            NotesCardItem(mNote = mNote, isChecked = isChecked, navController = navController)
         }
         item(span = StaggeredGridItemSpan.FullLine) {
             Spacer(modifier = Modifier.height(120.dp))
@@ -50,7 +49,7 @@ fun NotesCard(mNoteList: List<MNote>,navController: NavController, viewModel: Ho
 }
 
 @Composable
-fun NotesCardItem(mNote: MNote, navController: NavController, viewModel: HomeScreenViewModel) {
+fun NotesCardItem(mNote: MNote, navController: NavController, isChecked: Boolean) {
     Surface(modifier = Modifier
         .padding(5.dp)
         .fillMaxWidth(0.50f)
