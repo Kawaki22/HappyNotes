@@ -35,12 +35,12 @@ import com.notes.happynotes.navigation.NavScreen
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NotesCard(mNoteList: List<MNote>, navController: NavController, isChecked: Boolean) {
+fun NotesCard(mNoteList: List<MNote>, navController: NavController) {
     
     LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2)) {
         items(items = mNoteList) { mNote ->
 
-            NotesCardItem(mNote = mNote, isChecked = isChecked, navController = navController)
+            NotesCardItem(mNote = mNote, navController = navController)
         }
         item(span = StaggeredGridItemSpan.FullLine) {
             Spacer(modifier = Modifier.height(120.dp))
@@ -49,7 +49,7 @@ fun NotesCard(mNoteList: List<MNote>, navController: NavController, isChecked: B
 }
 
 @Composable
-fun NotesCardItem(mNote: MNote, navController: NavController, isChecked: Boolean) {
+fun NotesCardItem(mNote: MNote, navController: NavController) {
     Surface(modifier = Modifier
         .padding(5.dp)
         .fillMaxWidth(0.50f)

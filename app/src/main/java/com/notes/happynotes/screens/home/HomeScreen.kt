@@ -88,11 +88,11 @@ fun HomeScreen(isChecked: MutableState<Boolean>, navController: NavHostControlle
 
             //show filtered notes if searched
             if (searchNote.isNotEmpty()) {
-                NotesCard(mNoteList = searchNote, isChecked = isChecked.value, navController = navController)
+                NotesCard(mNoteList = searchNote, navController = navController)
             } else {
                 //List of Notes Card
                 //All notes
-                NotesCard(mNoteList = notesList.value, isChecked = isChecked.value, navController = navController)
+                NotesCard(mNoteList = notesList.value, navController = navController)
             }
 
             //No notes! Text
