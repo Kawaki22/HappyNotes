@@ -95,7 +95,7 @@ fun AddNoteScreen(
                 placeholder = { Text(text = "Title", style = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Start)) },
                 colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
                 keyboardActions = KeyboardActions(onNext = { focusReqBody.requestFocus() }),
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
                 shape = RoundedCornerShape(15.dp),
                 textStyle = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold)
             )
@@ -109,7 +109,7 @@ fun AddNoteScreen(
                 placeholder = { Text(text = "Start typing.....", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Start)) },
                 colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
                 keyboardActions = KeyboardActions(onNext = {  }),
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, keyboardType = KeyboardType.Text, imeAction = ImeAction.Default),
                 singleLine = false,
                 shape = RoundedCornerShape(15.dp),
                 textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal)

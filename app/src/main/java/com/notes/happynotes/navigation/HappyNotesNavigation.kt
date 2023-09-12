@@ -30,7 +30,7 @@ fun HappyNotesNavigation(isChecked: MutableState<Boolean>) {
          val editScreen = NavScreen.EditNoteScreen.name
          composable("$editScreen/{id}/{title}/{body}/{color}/{height}", arguments = listOf(
              navArgument("id") {
-                 type = NavType.StringType
+                 type = NavType.LongType
              },
              navArgument("title") {
                  type = NavType.StringType

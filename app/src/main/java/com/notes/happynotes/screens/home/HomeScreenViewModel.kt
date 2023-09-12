@@ -1,7 +1,5 @@
 package com.notes.happynotes.screens.home
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.notes.happynotes.model.MDarkMode
@@ -13,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,6 +41,7 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
         }
     }
 
+    /*
     fun getNote(noteName: String): MNote {
         var note: MNote = MNote(title = "", noteBody = "", color = 0xFF000000, height = 100)
         viewModelScope.launch(Dispatchers.IO) {
@@ -51,6 +49,7 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
         }
         return note
     }
+     */
 
     fun addNote(note: MNote) {
         viewModelScope.launch(Dispatchers.IO) {

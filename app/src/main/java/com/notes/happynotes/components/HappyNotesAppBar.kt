@@ -39,7 +39,7 @@ fun HappyNotesAppBar(modifier: Modifier = Modifier, title: String, isChecked: Mu
 
     if (theme.isEmpty()) viewModel.addTheme(mode = MDarkMode(key = 1, isChecked = isChecked.value))
 
-    val viewModelIsChecked = viewModel.theme.collectAsState().value.first().isChecked
+    val viewModelIsChecked = if (viewModel.theme.collectAsState().value.isNotEmpty()) viewModel.theme.collectAsState().value.first().isChecked else false
 
 
 //    val themeFromRoom = remember { mutableStateOf(if (theme.isNotEmpty()) theme.first().isChecked else isChecked.value) }
