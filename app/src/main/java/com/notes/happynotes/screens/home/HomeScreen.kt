@@ -38,53 +38,64 @@ import com.notes.happynotes.navigation.NavScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(isChecked: MutableState<Boolean>, navController: NavHostController, viewModel: HomeScreenViewModel = hiltViewModel()) {
+fun HomeScreen(
+    isChecked: MutableState<Boolean>,
+    navController: NavHostController,
+    viewModel: HomeScreenViewModel = hiltViewModel()
+) {
 
     val searchState = remember { mutableStateOf("") }
 
     val notesList = viewModel.noteList.collectAsState()
     var searchNote = emptyList<MNote>()
 
-    val noNotesColor = if (isChecked.value) Color.White.copy(alpha = 0.5f) else Color.Black.copy(alpha = 0.5f)
+    val noNotesColor =
+        if (isChecked.value) Color.White.copy(alpha = 0.5f) else Color.Black.copy(alpha = 0.5f)
     val bottomBarColor = if (isChecked.value) Color(0xFF332E2E) else Color.Black
 
     searchNote = notesList.value.filter { mNote -> mNote.title.contains(searchState.value.trim()) }
 
-//    val notesDummyList = listOf<MNote>(
-//        MNote(
-//            title = "Game",
-//            noteBody = "Staggered Grid View has been seen in most applications such as Pinterest in which each item of grid view takes its own height and aligns within the grid view according to that. In this article, we will look at how to implement",
-//            color = 0xFF4E33FF,
-//            height = 200
-//        )
-//    )
-
     val scaffoldColor = if (isChecked.value) Color.Black else Color.White
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
-        topBar = {  },
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
         containerColor = scaffoldColor,
         floatingActionButton = {
-            FloatingActionButton(modifier = Modifier
-                .size(85.dp)
-                .padding(end = 20.dp, bottom = 20.dp),
+            FloatingActionButton(
+                modifier = Modifier
+                    .size(85.dp)
+                    .padding(end = 20.dp, bottom = 20.dp),
                 shape = CircleShape,
                 containerColor = bottomBarColor,
                 elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(2.dp),
-                onClick = { navController.navigate(NavScreen.AddNoteScreen.name) }) {
-                Icon(modifier = Modifier.size(30.dp), imageVector = Icons.Rounded.Add, contentDescription = "Add Note", tint = /*if (isChecked.value) Color.Black else */ Color.White)
+                onClick = { navController.navigate(NavScreen.AddNoteScreen.name) }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    imageVector = Icons.Rounded.Add,
+                    contentDescription = "Add Note",
+                    tint = Color.White
+                )
             }
-    }) { innerPadding ->
+        }
+    ) { innerPadding ->
 
-        Column(modifier = Modifier
-            .padding(innerPadding)
-            .padding(start = 15.dp, end = 15.dp, top = 15.dp)
-            .fillMaxSize(),
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(start = 15.dp, end = 15.dp, top = 15.dp)
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
             //AppBar
-            HappyNotesAppBar(title = "Notes", isChecked = isChecked, viewModel = viewModel, searchState = searchState) {  }
+            HappyNotesAppBar(
+                title = "Notes",
+                isChecked = isChecked,
+                viewModel = viewModel,
+                searchState = searchState
+            ) { }
 
             //show filtered notes if searched
             if (searchNote.isNotEmpty()) {
@@ -98,15 +109,28 @@ fun HomeScreen(isChecked: MutableState<Boolean>, navController: NavHostControlle
             //No notes! Text
             //Only show if notesList is Empty
             if (notesList.value.isEmpty()) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-
-                    Text(text = "No notes!", style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Center, color = noNotesColor), modifier = Modifier.padding(100.dp))
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.TopCenter
+                ) {
+                    Text(
+                        text = "No notes!",
+                        style = TextStyle(
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Center,
+                            color = noNotesColor
+                        ),
+                        modifier = Modifier.padding(100.dp)
+                    )
                 }
             }
         }
-        BottomNavBar(isChecked = isChecked.value, navBarColor = bottomBarColor, navController = navController, viewModel = viewModel)
-
-
-
+        BottomNavBar(
+            isChecked = isChecked.value,
+            navBarColor = bottomBarColor,
+            navController = navController,
+            viewModel = viewModel
+        )
     }
 }

@@ -30,7 +30,14 @@ import com.notes.happynotes.model.MDarkMode
 import com.notes.happynotes.screens.home.HomeScreenViewModel
 
 @Composable
-fun HappyNotesAppBar(modifier: Modifier = Modifier, title: String, isChecked: MutableState<Boolean>, viewModel: HomeScreenViewModel, searchState: MutableState<String>, onSearch: () -> Unit) {
+fun HappyNotesAppBar(
+    modifier: Modifier = Modifier,
+    title: String,
+    isChecked: MutableState<Boolean>,
+    viewModel: HomeScreenViewModel,
+    searchState: MutableState<String>,
+    onSearch: () -> Unit
+) {
 
     val mode = if (isChecked.value) R.drawable.dark_mode else R.drawable.light_mode
     val scaffoldColor = if (isChecked.value) Color.Black else Color.White
@@ -39,49 +46,88 @@ fun HappyNotesAppBar(modifier: Modifier = Modifier, title: String, isChecked: Mu
 
     if (theme.isEmpty()) viewModel.addTheme(mode = MDarkMode(key = 1, isChecked = isChecked.value))
 
-    val viewModelIsChecked = if (viewModel.theme.collectAsState().value.isNotEmpty()) viewModel.theme.collectAsState().value.first().isChecked else false
-
-
-//    val themeFromRoom = remember { mutableStateOf(if (theme.isNotEmpty()) theme.first().isChecked else isChecked.value) }
+    val viewModelIsChecked = if (viewModel.theme.collectAsState().value.isNotEmpty()) {
+        viewModel.theme.collectAsState().value.first().isChecked
+    } else {
+        false
+    }
 
     //Setting isChecked from Room to isChecked.value
     //if list is empty use false, list will be empty at the first launch of the app
-    LaunchedEffect(key1 = viewModel.theme.collectAsState().value.first().isChecked) {
-        isChecked.value = viewModelIsChecked
+    if (viewModel.theme.collectAsState().value.isNotEmpty()) {
+        LaunchedEffect(key1 = viewModel.theme.collectAsState().value.first().isChecked) {
+            isChecked.value = viewModelIsChecked
+        }
     }
 
 
-    Surface(modifier = modifier
-        .fillMaxWidth()
-        .height(160.dp)
-        .padding(top = 20.dp),
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(160.dp)
+            .padding(top = 20.dp),
         color = scaffoldColor
     ) {
 
-        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 25.dp, end = 25.dp),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 25.dp, end = 25.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween) {
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
 
-                Text(text = title, style = TextStyle(fontSize = 40.sp, fontWeight = FontWeight.Bold, color = if (isChecked.value) Color.White else Color.Black))
+                Text(
+                    text = title,
+                    style = TextStyle(
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isChecked.value) Color.White else Color.Black
+                    )
+                )
 
-                Switch(checked = isChecked.value, onCheckedChange = {
-                    isChecked.value = it
-                        viewModel.updateTheme(mode = MDarkMode(key = 1, isChecked = isChecked.value))
-                                                                                           },
-                    colors = SwitchDefaults.colors(checkedBorderColor = Color.Transparent, checkedTrackColor = Color.White, checkedThumbColor = Color.Black, uncheckedBorderColor = Color.Transparent, uncheckedThumbColor = Color.White, uncheckedTrackColor = Color.Black),
-                    thumbContent = { Icon(painter = painterResource(id = mode), contentDescription = "Dark mode", tint = if (isChecked.value) Color.White else Color.Black, modifier = Modifier.size(20.dp)) })
-
+                Switch(
+                    checked = isChecked.value,
+                    onCheckedChange = {
+                        isChecked.value = it
+                        viewModel.updateTheme(
+                            mode = MDarkMode(
+                                key = 1,
+                                isChecked = isChecked.value
+                            )
+                        )
+                                      },
+                    colors = SwitchDefaults.colors(
+                        checkedBorderColor = Color.Transparent,
+                        checkedTrackColor = Color.White,
+                        checkedThumbColor = Color.Black,
+                        uncheckedBorderColor = Color.Transparent,
+                        uncheckedThumbColor = Color.White,
+                        uncheckedTrackColor = Color.Black
+                    ),
+                    thumbContent = {
+                        Icon(
+                            painter = painterResource(id = mode),
+                            contentDescription = "Dark mode",
+                            tint = if (isChecked.value) Color.White else Color.Black,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                )
             }
 
             //SearchBox
-            SearchBox(modifier = Modifier
-                .padding(top = 20.dp, bottom = 10.dp, start = 15.dp, end = 15.dp)
-                .fillMaxWidth(), searchState = searchState) {
+            SearchBox(
+                modifier = Modifier
+                    .padding(top = 20.dp, bottom = 10.dp, start = 15.dp, end = 15.dp)
+                    .fillMaxWidth(),
+                searchState = searchState
+            ) {
                 //OnSearch
                 onSearch.invoke()
             }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Happy Notes</string>
+    <string name="description">\"Happy Notes\" is a meticulously crafted Android application that brings the art of note-taking to a new level of convenience and delight. Built with the modern MVVM (Model-View-ViewModel) architecture and powered by the robust Room Database, this app offers an exceptional note-taking experience that seamlessly combines functionality with elegance.</string>
 </resources>

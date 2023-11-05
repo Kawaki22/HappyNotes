@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeScreenViewModel @Inject constructor(private val notesRepository: NotesRepository): ViewModel() {
+class HomeScreenViewModel @Inject constructor(private val notesRepository: NotesRepository) :
+    ViewModel() {
 
     private val _notesList = MutableStateFlow<List<MNote>>(emptyList())
     val noteList = _notesList.asStateFlow()
@@ -25,7 +26,6 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
     init {
         getAllNotes()
         getTheme()
-//        Log.d("THEMEE", "HappyNotesAppBar: $theme")
     }
 
     private fun getAllNotes() {
@@ -41,50 +41,31 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
         }
     }
 
-    /*
-    fun getNote(noteName: String): MNote {
-        var note: MNote = MNote(title = "", noteBody = "", color = 0xFF000000, height = 100)
-        viewModelScope.launch(Dispatchers.IO) {
-           note = notesRepository.getNote(noteName = noteName)
-        }
-        return note
-    }
-     */
-
     fun addNote(note: MNote) {
         viewModelScope.launch(Dispatchers.IO) {
-
             notesRepository.addNote(note = note)
-
         }
     }
 
     fun editNote(note: MNote) {
         viewModelScope.launch(Dispatchers.IO) {
-
             notesRepository.editNote(note = note)
-
         }
     }
 
     fun deleteAllNotes() {
         viewModelScope.launch(Dispatchers.IO) {
-
             notesRepository.deleteAllNotes()
-
         }
     }
 
     fun deleteNote(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-
             notesRepository.deleteNote(id = id)
-
         }
     }
 
     private fun getTheme() {
-//        var mode: MDarkMode? = null
         viewModelScope.launch(Dispatchers.IO) {
             notesRepository.getTheme().distinctUntilChanged().collect { listOfMDark ->
 
@@ -94,9 +75,7 @@ class HomeScreenViewModel @Inject constructor(private val notesRepository: Notes
                     _theme.value = emptyList()
                 }
             }
-//            Log.d("THEMEE", "HappyNotesAppBar: $mode")
         }
-//        return mode
     }
 
     fun addTheme(mode: MDarkMode) {

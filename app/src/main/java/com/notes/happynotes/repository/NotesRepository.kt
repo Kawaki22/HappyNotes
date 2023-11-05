@@ -13,8 +13,6 @@ class NotesRepository @Inject constructor(private val happyNotesDao: HappyNotesD
 
     fun getAllNotes(): Flow<List<MNote>> = happyNotesDao.getAllNotes().flowOn(Dispatchers.IO)
 
-    suspend fun getNote(noteName: String): MNote = happyNotesDao.getNote(name = noteName)
-
     suspend fun addNote(note: MNote) = happyNotesDao.addNote(note = note)
 
     suspend fun editNote(note: MNote) = happyNotesDao.editNote(note = note)

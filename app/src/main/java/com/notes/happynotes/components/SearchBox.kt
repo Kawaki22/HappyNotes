@@ -24,13 +24,38 @@ import com.notes.happynotes.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBox(modifier: Modifier = Modifier, searchState: MutableState<String>, onSearch: () -> Unit) {
-    TextField(modifier = modifier, value = searchState.value, onValueChange = { searchState.value = it },
-        leadingIcon = { Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = "Search") },
-        keyboardOptions = KeyboardOptions(KeyboardCapitalization.Words, imeAction = ImeAction.Search),
+fun SearchBox(
+    modifier: Modifier = Modifier,
+    searchState: MutableState<String>,
+    onSearch: () -> Unit
+) {
+    TextField(
+        modifier = modifier, value = searchState.value, onValueChange = { searchState.value = it },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_search),
+                contentDescription = "Search"
+            )
+        },
+        keyboardOptions = KeyboardOptions(
+            KeyboardCapitalization.Words,
+            imeAction = ImeAction.Search
+        ),
         keyboardActions = KeyboardActions(onSearch = { onSearch.invoke() }),
-        colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent),
-        placeholder = { Text(text = "Search your notes", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Center)) },
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
+        placeholder = {
+            Text(
+                text = "Search your notes",
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center
+                )
+            )
+        },
         shape = RoundedCornerShape(12.dp)
     )
 }

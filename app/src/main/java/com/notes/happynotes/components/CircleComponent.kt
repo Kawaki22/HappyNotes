@@ -16,9 +16,17 @@ import androidx.compose.ui.unit.dp
 import com.notes.happynotes.Utils
 
 @Composable
-fun CircleComponent(backButtonPadding: Dp = 0.dp, onClick: () -> Unit, color: Color = Utils.offWhite, icon: @Composable () -> Unit) {
+fun CircleComponent(
+    backButtonPadding: Dp = 0.dp,
+    onClick: () -> Unit,
+    color: Color = Utils.offWhite,
+    icon: @Composable () -> Unit
+) {
     Surface(modifier = Modifier.size(40.dp), shape = CircleShape, color = color) {
-        Box(modifier = Modifier.fillMaxSize().clickable { onClick.invoke() }.padding(end = backButtonPadding), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .clickable { onClick.invoke() }
+            .padding(end = backButtonPadding), contentAlignment = Alignment.Center) {
             icon.invoke()
         }
     }

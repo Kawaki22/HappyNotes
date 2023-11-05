@@ -22,33 +22,63 @@ import androidx.navigation.NavController
 import com.notes.happynotes.R
 
 @Composable
-fun HappyNotesAppBar2(done: () -> Unit, onDelete: () -> Unit = {  }, showDelete: Boolean = false, showDone: Boolean = true, isChecked: Boolean?, navController: NavController) {
+fun HappyNotesAppBar2(
+    done: () -> Unit,
+    onDelete: () -> Unit = { },
+    showDelete: Boolean = false,
+    showDone: Boolean = true,
+    isChecked: Boolean?,
+    navController: NavController
+) {
 
     val scaffoldColor = if (isChecked == true) Color.Black else Color.White
 
-    Surface(modifier = Modifier
-        .fillMaxWidth()
-        .height(120.dp),
-        color = scaffoldColor) {
-        Row(modifier = Modifier
+    Surface(
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 25.dp, end = 25.dp),
+            .height(120.dp),
+        color = scaffoldColor
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 25.dp, end = 25.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween) {
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
 
-            CircleComponent(color = Color(0xFF03A9F4), backButtonPadding = 2.dp, onClick = { navController.popBackStack() }) {
-                Icon(modifier = Modifier
-                    .size(20.dp), painter = painterResource(id = R.drawable.back), contentDescription = "Back", tint = Color.Black)
+            CircleComponent(
+                color = Color(0xFF03A9F4),
+                backButtonPadding = 2.dp,
+                onClick = { navController.popBackStack() }) {
+                Icon(
+                    modifier = Modifier
+                        .size(20.dp),
+                    painter = painterResource(id = R.drawable.back),
+                    contentDescription = "Back",
+                    tint = Color.Black
+                )
             }
 
             Box(modifier = Modifier.fillMaxWidth(0.30f)) {
-                Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
 
                     if (showDelete) {
                         //Delete Icon
-                        CircleComponent(color = Color(0xFFF1685D), onClick = { onDelete.invoke() }) {
-                            Icon(modifier = Modifier
-                                .size(22.dp), painter = painterResource(id = R.drawable.delete), contentDescription = "Delete Note", tint = Color.Black)
+                        CircleComponent(
+                            color = Color(0xFFF1685D),
+                            onClick = { onDelete.invoke() }) {
+                            Icon(
+                                modifier = Modifier
+                                    .size(22.dp),
+                                painter = painterResource(id = R.drawable.delete),
+                                contentDescription = "Delete Note",
+                                tint = Color.Black
+                            )
                         }
                     } else {
                         Box(modifier = Modifier.width(20.dp))
@@ -56,8 +86,13 @@ fun HappyNotesAppBar2(done: () -> Unit, onDelete: () -> Unit = {  }, showDelete:
                     //Update Icon
                     if (showDone) {
                         CircleComponent(color = Color(0xFFCDDC39), onClick = { done.invoke() }) {
-                            Icon(modifier = Modifier
-                                .size(20.dp), painter = painterResource(id = R.drawable.done), contentDescription = "Update Note", tint = Color.Black)
+                            Icon(
+                                modifier = Modifier
+                                    .size(20.dp),
+                                painter = painterResource(id = R.drawable.done),
+                                contentDescription = "Update Note",
+                                tint = Color.Black
+                            )
                         }
                     }
                 }

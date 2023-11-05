@@ -36,7 +36,7 @@ import com.notes.happynotes.navigation.NavScreen
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotesCard(mNoteList: List<MNote>, navController: NavController) {
-    
+
     LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2)) {
         items(items = mNoteList) { mNote ->
 
@@ -50,46 +50,83 @@ fun NotesCard(mNoteList: List<MNote>, navController: NavController) {
 
 @Composable
 fun NotesCardItem(mNote: MNote, navController: NavController) {
-    Surface(modifier = Modifier
-        .padding(5.dp)
-        .fillMaxWidth(0.50f)
-        .height(mNote.height.dp)
-        .clip(RoundedCornerShape(15.dp))
-        .clickable { navController.navigate(NavScreen.EditNoteScreen.name + "/${mNote.id}/${mNote.title}/${mNote.noteBody}/${mNote.color}/${mNote.height}") },
+    Surface(
+        modifier = Modifier
+            .padding(5.dp)
+            .fillMaxWidth(0.50f)
+            .height(mNote.height.dp)
+            .clip(RoundedCornerShape(15.dp))
+            .clickable { navController.navigate(NavScreen.EditNoteScreen.name + "/${mNote.id}/${mNote.title}/${mNote.noteBody}/${mNote.color}/${mNote.height}") },
         shape = RoundedCornerShape(15.dp),
         color = Color(mNote.color).copy(alpha = 0.8f)
     ) {
-       Column(modifier = Modifier
-           .fillMaxSize()
-           .padding(15.dp),
-           verticalArrangement = Arrangement.Top,
-           horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(15.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-           Row(modifier = Modifier.fillMaxWidth(),
-               verticalAlignment = Alignment.CenterVertically,
-               horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
 
-               Text(modifier = Modifier
-                   .fillMaxWidth()
-                   .padding(bottom = 8.dp), text = mNote.title, style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Start, color = Color.White), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    text = mNote.title,
+                    style = TextStyle(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Start,
+                        color = Color.White
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                }
+            }
 
-           Text(text = mNote.noteBody, modifier = Modifier
-               .fillMaxWidth()
+            Text(
+                text = mNote.noteBody,
+                modifier = Modifier
+                    .fillMaxWidth()
 //               .padding(bottom = 5.dp)
-               .height(mNote.height.dp - 90.dp), style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Start, color = Color.White), overflow = TextOverflow.Ellipsis)
+                    .height(mNote.height.dp - 90.dp),
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Start,
+                    color = Color.White
+                ),
+                overflow = TextOverflow.Ellipsis
+            )
 
-           Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-               Row(modifier = Modifier.fillMaxWidth(),
-                   verticalAlignment = Alignment.CenterVertically,
-                   horizontalArrangement = Arrangement.SpaceBetween) {
-                   Text(text = mNote.dateTime, modifier = Modifier.fillMaxWidth(0.80f), style = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Start, color = Color.White))
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = mNote.dateTime,
+                        modifier = Modifier.fillMaxWidth(0.80f),
+                        style = TextStyle(
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            color = Color.White
+                        )
+                    )
 //                   Icon(modifier = Modifier.size(30.dp).clip(CircleShape).clickable { viewModel.deleteNote(id = mNote.id) }, painter = painterResource(id = R.drawable.delete), contentDescription = "Delete Note", tint = Color.White)
 
-               }
-           }
+                }
+            }
 
-       }
+        }
     }
 }

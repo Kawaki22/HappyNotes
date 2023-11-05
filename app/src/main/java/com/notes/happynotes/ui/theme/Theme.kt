@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -54,20 +53,18 @@ fun HappyNotesTheme(
       darkTheme -> DarkColorScheme
       else -> LightColorScheme
     }
-//    val view = LocalView.current
 
-    val systemUI = rememberSystemUiController()
-    SideEffect {
-        if (darkTheme) systemUI.setSystemBarsColor(Color.Black) else systemUI.setSystemBarsColor(Color.White)
+    val view = LocalView.current
+
+    if (!view.isInEditMode) {
+      SideEffect {
+        val window = (view.context as Activity).window
+        window.statusBarColor = Color.Transparent.toArgb()
+        window.navigationBarColor = Color.Transparent.toArgb()
+        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+        WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
+      }
     }
-
-//    if (!view.isInEditMode) {
-//      SideEffect {
-//        val window = (view.context as Activity).window
-//        window.statusBarColor = colorScheme.primary.toArgb()
-//        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-//      }
-//    }
 
     MaterialTheme(
       colorScheme = colorScheme,

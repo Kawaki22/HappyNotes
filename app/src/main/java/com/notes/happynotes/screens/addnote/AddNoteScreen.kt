@@ -1,6 +1,5 @@
 package com.notes.happynotes.screens.addnote
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
@@ -32,9 +31,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.compose.ui.unit.sp
 import com.notes.happynotes.components.HappyNotesAppBar2
 import com.notes.happynotes.model.MNote
 import com.notes.happynotes.screens.home.HomeScreenViewModel
@@ -62,54 +61,109 @@ fun AddNoteScreen(
     //format: Mon Aug 2023 06:06 AM
     val dateTime = SimpleDateFormat("E MMM yyyy hh:mm a", Locale.getDefault())
 
-//    val fontColor = if (isChecked.value) Color.White.copy(alpha = 0.5f) else Color.Black.copy(alpha = 0.5f)
-
     val newNote = MNote(
         title = title.value.trim(),
         noteBody = body.value.trim(),
         color = Random.nextLong(0xFFFFFFFF),
-        height = Random.nextInt(220,300)
+        height = Random.nextInt(220, 300)
     )
 
     val scaffoldColor = if (isChecked == true) Color.Black else Color.White
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
         containerColor = scaffoldColor,
-        topBar = { HappyNotesAppBar2(done = { if (title.value.trim().isNotEmpty() && body.value.trim().isNotEmpty() ) {
-            viewModel.addNote(note = newNote)
-            navController.popBackStack()
-        } },
-            navController = navController,
-            isChecked = isChecked)}) { innerPadding ->
+        topBar = {
+            HappyNotesAppBar2(
+                done = {
+                    if (title.value.trim().isNotEmpty() && body.value.trim().isNotEmpty()) {
+                        viewModel.addNote(note = newNote)
+                        navController.popBackStack()
+                    }
+                },
+                navController = navController,
+                isChecked = isChecked
+            )
+        }) { innerPadding ->
 
-        Column(modifier = Modifier
-            .padding(innerPadding)
-            .padding(10.dp),
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(10.dp),
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-            TextField(modifier = Modifier
-                .fillMaxWidth()
-                .defaultMinSize(minHeight = 70.dp)
-                .focusRequester(focusReq), value = title.value, onValueChange = { title.value = it },
-                placeholder = { Text(text = "Title", style = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Start)) },
-                colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 70.dp)
+                    .focusRequester(focusReq),
+                value = title.value,
+                onValueChange = { title.value = it },
+                placeholder = {
+                    Text(
+                        text = "Title",
+                        style = TextStyle(
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Start
+                        )
+                    )
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    containerColor = Color.Transparent
+                ),
                 keyboardActions = KeyboardActions(onNext = { focusReqBody.requestFocus() }),
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences,
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
                 shape = RoundedCornerShape(15.dp),
                 textStyle = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold)
             )
 
-            Text(modifier = Modifier.fillMaxWidth(), text = dateTime.format(Date()), style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = dateTime.format(Date()),
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            )
 
-            TextField(modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .focusRequester(focusReqBody), value = body.value, onValueChange = { body.value = it },
-                placeholder = { Text(text = "Start typing.....", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal, textAlign = TextAlign.Start)) },
-                colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent, containerColor = Color.Transparent),
-                keyboardActions = KeyboardActions(onNext = {  }),
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, keyboardType = KeyboardType.Text, imeAction = ImeAction.Default),
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .focusRequester(focusReqBody),
+                value = body.value,
+                onValueChange = { body.value = it },
+                placeholder = {
+                    Text(
+                        text = "Start typing.....",
+                        style = TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start
+                        )
+                    )
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    containerColor = Color.Transparent
+                ),
+                keyboardActions = KeyboardActions(onNext = { }),
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences,
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Default
+                ),
                 singleLine = false,
                 shape = RoundedCornerShape(15.dp),
                 textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal)
