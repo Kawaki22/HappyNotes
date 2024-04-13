@@ -12,6 +12,8 @@ It follows the MVVM architecture pattern and utilizes the ROOM database for effi
 
 ## Screenshots
 
+<div align="center">
+<div>
 <img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/9f909509-99cf-446e-abe6-6791dafd9abf" width="20%" /> <!-- Home -->
 <img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/ed4e82a1-1887-4aab-a348-0f270eab93c7" width="20%" /> <!-- Delete -->
 <img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/6c6e4b92-09cf-472a-96c2-0c143a83e07f" width="20%" /> <!-- AddNote -->
@@ -20,6 +22,8 @@ It follows the MVVM architecture pattern and utilizes the ROOM database for effi
 <img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/5e00e3b4-93fc-4f4c-8e61-d7689875de07" width="20%" /> <!-- Delete -->
 <img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/4a1d7d07-94f5-4a62-b947-9fe57692b8b6" width="20%" /> <!-- AddNote -->
 <img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/0d126eea-1b40-45f2-a175-ee52d4a512a1" width="20%" /> <!-- SearchNote -->
+</div>
+</div>
 
 ## Architecture
 
