@@ -1,21 +1,30 @@
-# Happy Notes - Android Jetpack Compose App
+## Happy Notes
+
 Happy Notes is a simple and intuitive notes app built using the Android Jetpack Compose framework.
 It follows the MVVM architecture pattern and utilizes the ROOM database for efficient storage and retrieval of notes.
 
-# Features
+## Features
+
 1) Create, edit, and delete notes effortlessly with a modern and user-friendly interface.
 2) Organize your notes efficiently to stay productive.
 3) Seamlessly switch between light and dark themes for optimal user experience.
 4) Notes are securely stored locally using the ROOM database, ensuring your data's privacy.
 
-# Architecture
+## Screenshots
+
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/9f909509-99cf-446e-abe6-6791dafd9abf" width="30%" />
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/ed4e82a1-1887-4aab-a348-0f270eab93c7" width="30%" />
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/6c6e4b92-09cf-472a-96c2-0c143a83e07f" width="30%" />
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/75a97602-0d2a-42a8-a265-64052e857bd5" width="30%" />
+
+## Architecture
+
 The app is designed with the MVVM (Model-View-ViewModel) architecture, promoting separation of concerns and maintainability.
 
-# Libraries Used
+## Libraries Used
+
 1) Android Jetpack Compose: Modern UI toolkit for building native UIs.
 2) ROOM Database: Provides local storage capabilities with SQLite and seamless object-mapping.
 3) Material Design Components: Offers pre-designed UI elements following the Material Design guidelines.
 
-Designed and developed by Prasidh Gopal Anchan.
-
-Got suggestions or feedback? Let's connect: prasidhpoojary22@gmail.com
+Got suggestions or feedback? Let's connect: prasidhgopalanchan@gmail.com
