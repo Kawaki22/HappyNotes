@@ -12,10 +12,10 @@ It follows the MVVM architecture pattern and utilizes the ROOM database for effi
 
 ## Screenshots
 
-<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/9f909509-99cf-446e-abe6-6791dafd9abf" width="30%" />
-<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/ed4e82a1-1887-4aab-a348-0f270eab93c7" width="30%" />
-<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/6c6e4b92-09cf-472a-96c2-0c143a83e07f" width="30%" />
-<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/75a97602-0d2a-42a8-a265-64052e857bd5" width="30%" />
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/9f909509-99cf-446e-abe6-6791dafd9abf" width="20%" />
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/ed4e82a1-1887-4aab-a348-0f270eab93c7" width="20%" />
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/6c6e4b92-09cf-472a-96c2-0c143a83e07f" width="20%" />
+<img src="https://github.com/prasidhanchan/HappyNotes/assets/92362239/75a97602-0d2a-42a8-a265-64052e857bd5" width="20%" />
 
 ## Architecture
 
